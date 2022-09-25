@@ -1,0 +1,1 @@
+Testing environment for RC Cloud Practitioner Competition
