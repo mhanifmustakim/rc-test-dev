@@ -16,7 +16,7 @@ class User extends Connect {
         $stmt = self::connect()->prepare("SELECT `id` from `users` WHERE `email` = :email AND `password` = :password");
         $stmt->bindParam(":email" , $email , PDO::PARAM_STR);
         $password =md5($password);
-        $stmt->bindParam(":password" , $password , PDO::PARAM_STR);    
+        $stmt->bindParam(":password" , $password , PDO::PARAM_STR);
         $stmt->execute();
          
         if ($stmt->rowCount() > 0) {
