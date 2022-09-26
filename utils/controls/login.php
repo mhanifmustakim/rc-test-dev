@@ -1,5 +1,5 @@
 <?php
-    include_once '../init.php';
+    include '../init.php';
 
     if (isset($_POST['login']) && !empty($_POST['login'])) {
         $email= User::checkInput($_POST['email']);
@@ -7,7 +7,7 @@
         
         User::login($email, $password);
         if (User::login($email, $password) === false) {
-            $_SESSION['errors'] = 'Incorrect email or password.';
+            $_SESSION['errors'] = ['Incorrect email or password.'];
             header('location: ../../index.php');
             return;
         }

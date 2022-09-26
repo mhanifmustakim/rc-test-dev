@@ -1,3 +1,7 @@
+<?php
+    include 'utils/init.php';
+?>
+<!-- -------------VIEW--------------- -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +21,11 @@
 
     <?php
         if(isset($_SESSION['errors'])){
-            // foreach ($_SESSION['errors'] as $error){
+            foreach ($_SESSION['errors'] as $error){
                 echo '<h2>';
-                echo $_SESSION['errors'];
-                echo '</h2>';   
-            // }
+                echo $error;
+                echo '</h2>';
+            }
 
             unset($_SESSION['errors']);
         }

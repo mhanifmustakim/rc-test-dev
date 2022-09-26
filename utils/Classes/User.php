@@ -18,12 +18,15 @@ class User extends Connect {
         $password =md5($password);
         $stmt->bindParam(":password" , $password , PDO::PARAM_STR);    
         $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
          
         if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
             $_SESSION['user_id'] = $user->id;
             header('location: ../../home.php');
-        } else {return false; }
+            return;
+        } else {
+          return false;
+        }
       }
 
     
@@ -88,8 +91,8 @@ class User extends Connect {
         //     Tweet::create('notifications' , $data_notify);
 
           $_SESSION['welcome'] = 'welcome';
-          header('location: ../../home.php')  ;
-
+          header('location: ../../home.php');
+          return;
       } 
       public static function update($table , $user_id , $fields = array()){
           $colms = '';
@@ -138,6 +141,7 @@ class User extends Connect {
             $_SESSION = array();
             session_destroy();
             header('location: ../../index.php');
+            return;
         }
 
        public static function checkEmail($email) {

@@ -1,5 +1,5 @@
 <?php
-    include_once 'utils/init.php';
+    include 'utils/init.php';
 
     if (User::checkLogIn() === false) {
         header('location: index.php');

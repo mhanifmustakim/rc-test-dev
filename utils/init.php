@@ -1,8 +1,10 @@
 <?php
-    include_once 'Classes/Connect.php';
-    include_once 'Classes/User.php';
+    include 'Classes/Connect.php';
+    include 'Classes/User.php';
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }    
 
     global $pdo;
 
