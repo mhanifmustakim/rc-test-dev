@@ -20,5 +20,6 @@
 </head>
 <body>
     <h1>Welcome to Home Page! @<?php echo $user->username ?></h1>
+    <a href="utils/controls/logout.php">Log Out</a>
 </body>
 </html>

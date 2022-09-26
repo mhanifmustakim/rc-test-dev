@@ -1,5 +1,9 @@
 <?php
     include 'utils/init.php';
+
+    if (isset($_SESSION['user_id'])) {
+        header('location: home.php');
+    }
 ?>
 <!-- -------------VIEW--------------- -->
 <!DOCTYPE html>
