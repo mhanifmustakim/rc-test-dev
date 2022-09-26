@@ -9,8 +9,22 @@
     <script src="utils/main.js" defer></script>
 </head>
 <body>
-    <p>
-        <?php phpinfo();?>
-    </p>
+    <form action="./utils/controls/login.php" method="POST">
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="submit" value="Log in" name="login">
+    </form>
+
+    <?php
+        if(isset($_SESSION['errors'])){
+            // foreach ($_SESSION['errors'] as $error){
+                echo '<h2>';
+                echo $_SESSION['errors'];
+                echo '</h2>';   
+            // }
+
+            unset($_SESSION['errors']);
+        }
+    ?>
 </body>
 </html>

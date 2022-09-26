@@ -1,6 +1,6 @@
 <?php
 
-class Connection {
+class Connect {
     protected static $servername = "localhost";
     protected static $db_name= "";
     protected static $username = "";

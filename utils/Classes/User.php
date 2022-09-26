@@ -22,7 +22,7 @@ class User extends Connect {
          
         if ($stmt->rowCount() > 0) {
             $_SESSION['user_id'] = $user->id;
-            header('location: ../home.php');
+            header('location: ../../home.php');
         } else {return false; }
       }
 
@@ -88,7 +88,7 @@ class User extends Connect {
         //     Tweet::create('notifications' , $data_notify);
 
           $_SESSION['welcome'] = 'welcome';
-          header('location: ../home.php')  ;
+          header('location: ../../home.php')  ;
 
       } 
       public static function update($table , $user_id , $fields = array()){
@@ -137,7 +137,7 @@ class User extends Connect {
         public static function logout () {
             $_SESSION = array();
             session_destroy();
-            header('location: ../index.php');
+            header('location: ../../index.php');
         }
 
        public static function checkEmail($email) {
