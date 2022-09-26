@@ -15,6 +15,7 @@
         <input type="text" name="username" id="username" placeholder="username" maxlength="20" required>
         <input type="email" name="email" id="email" placeholder="email" required>
         <input type="password" name="password" id="password" placeholder="password" min-length="8" required>
+        <input type="password" name="confirmpw" id="confirmpw" placeholder="confirm password" min-length="8" required>
         <input type="text" name="name" id="name" placeholder="name" maxlength="20" required>
         <input type="submit" value="Sign Up" name="signup">
     </form>
@@ -22,11 +23,9 @@
     <!-- Flash Errors for signup -->
     <?php 
         if(isset($_SESSION['errors_signup'])){
-            foreach ($_SESSION['errors_signup'] as $error) {     
-                echo '<h2>';
-                echo $error;
-                echo '<\h2>';
-            }
+            foreach ($_SESSION['errors_signup'] as $error) { ?>
+                <h2><?php echo $error; ?></h2>
+    <?php   }
         }
 
         unset($_SESSION['errors_signup']) 
