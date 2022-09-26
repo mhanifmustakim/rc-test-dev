@@ -271,7 +271,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(40) NOT NULL UNIQUE,
   `email` varchar(255) NOT NULL UNIQUE,
   `password` varchar(32) NOT NULL,
-  `name` varchar(40) NOT NULL,
   `img` varchar(255) NOT NULL DEFAULT 'default.jpg',
   `imgCover` varchar(255) NOT NULL DEFAULT 'cover.png',
   `bio` varchar(140) NOT NULL DEFAULT '',

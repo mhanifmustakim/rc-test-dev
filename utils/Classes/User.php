@@ -29,7 +29,23 @@ class User extends Connect {
         }
       }
 
-    
+      
+      public static  function loginByUsername ($username , $password) {
+        $stmt = self::connect()->prepare("SELECT `id` from `users` WHERE `username` = :username AND `password` = :password");
+        $stmt->bindParam(":username" , $username , PDO::PARAM_STR);
+        $password =md5($password);
+        $stmt->bindParam(":password" , $password , PDO::PARAM_STR);
+        $stmt->execute();
+         
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
+            $_SESSION['user_id'] = $user->id;
+            header('location: ../../home.php');
+            return;
+        } else {
+          return false;
+        }
+      }
 
       public static function create($table , $fields = array()) {
             $colms = implode(',' , array_keys($fields));
@@ -50,16 +66,15 @@ class User extends Connect {
                   return $user_id;
             }
       }
-      public static function register($email , $password , $name , $username) {
+      public static function register($email , $password , $username) {
     
         $pdo = self::connect();
         $pdo->beginTransaction();      
-        $stmt = $pdo->prepare("INSERT INTO `users` (`email` , `password` , `name` , `username`) Values (:email , :password , :name , :username)");
+        $stmt = $pdo->prepare("INSERT INTO `users` (`email` , `password` , `username`) Values (:email , :password, :username)");
 
         $stmt->bindParam(":email" , $email , PDO::PARAM_STR);
         $password =md5($password);
         $stmt->bindParam(":password" , $password , PDO::PARAM_STR); 
-        $stmt->bindParam(":name" , $name , PDO::PARAM_STR);
         $stmt->bindParam(":username" , $username , PDO::PARAM_STR);
     
         if ($stmt->execute() === FALSE) {

@@ -6,7 +6,6 @@
         $password = User::checkInput($_POST['password']);
         $confirmpw = User::checkInput($_POST['confirmpw']);
         $username = User::checkInput($_POST['username']);
-        $name = User::checkInput($_POST['name']);
 
         // Remove spaces in username
         $username = str_replace(' ', '', $username);
@@ -36,7 +35,7 @@
         }
         
 
-        User::register($email, $password, $name, $username);
+        User::register($email, $password, $username);
     } else {
         header('location: ../../sign-up.php');
         return;

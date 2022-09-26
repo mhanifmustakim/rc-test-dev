@@ -16,7 +16,6 @@
         <input type="email" name="email" id="email" placeholder="email" required>
         <input type="password" name="password" id="password" placeholder="password" min-length="8" required>
         <input type="password" name="confirmpw" id="confirmpw" placeholder="confirm password" minlength="8" required>
-        <input type="text" name="name" id="name" placeholder="name" maxlength="20" required>
         <input type="submit" value="Sign Up" name="signup">
     </form>
 
