@@ -2,7 +2,7 @@
     include 'utils/init.php';
 
     if (User::checkLogIn() === false) {
-        header('location: index.php');
+        header('location: ../../index.php');
         return;
     }
 
@@ -21,7 +21,15 @@
 </head>
 <body>
     <h1>Welcome to Home Page! @<?php echo $user->username ?></h1>
+
     <div id="post-container"></div>
+    
+    <h1>Start a new discussion: </h1>
+    <form action="./utils/controls/post.php" method="POST">
+        <input type="text" name="header" id="header" placeholder="Add header of discussion." maxlength="40" required>
+        <input type="text" name="content" id="content" placeholder="Add description." maxlength="250" rows="5" cols="50" required>
+        <input type="submit" value="Start Discussion" name="post">
+    </form>
     <a href="utils/controls/logout.php">Log Out</a>
 </body>
 </html>

@@ -11,7 +11,7 @@ fetch('./utils/posts-json.php')
             const postContent = document.createElement("p");
             const postHeader = document.createElement("h2");
 
-            postHeader.innerText = `${obj.post.header}    - by @${obj.post_user.username}`;
+            postHeader.innerText = `${obj.post.header}  - by @${obj.post_user.username} (${obj.timeAgo})`;
             postContent.innerText = obj.post.content;
 
             post.appendChild(postHeader);
