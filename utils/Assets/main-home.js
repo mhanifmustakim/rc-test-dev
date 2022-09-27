@@ -1,10 +1,21 @@
 const postContainer = document.querySelector("#post-container");
-const xmlhttp = new XMLHttpRequest();
 
-xmlhttp.onload = function () {
-    const resObj = JSON.parse(this.responseText);
-    console.log(resObj);
-}
+fetch('./utils/posts-json.php')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.dir(data);
+        data.forEach((obj) => {
+            const post = document.createElement("div");
+            const postContent = document.createElement("p");
+            const postHeader = document.createElement("h2");
 
-xmlhttp.open("GET", "../posts-json.php");
-xmlhttp.send();
+            postHeader.innerText = `${obj.post.header}    - by @${obj.post_user.username}`;
+            postContent.innerText = obj.post.content;
+
+            post.appendChild(postHeader);
+            post.appendChild(postContent);
+            postContainer.appendChild(post);
+        })
+    });

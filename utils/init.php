@@ -1,6 +1,7 @@
 <?php
     include 'Classes/Connect.php';
     include 'Classes/User.php';
+    include 'Classes/Post.php';
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
