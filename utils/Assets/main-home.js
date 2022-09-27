@@ -1,25 +1,31 @@
 const postContainer = document.querySelector("#post-container");
+let currentPosts = 0;
 
-const refreshPosts = fetch('./utils/posts-json.php')
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.dir(data);
-        data.forEach((obj) => {
-            const post = document.createElement("div");
-            const postContent = document.createElement("p");
-            const postHeader = document.createElement("h2");
-
-            postHeader.innerText = `${obj.post.header}  - by @${obj.post_user.username} (${obj.timeAgo})`;
-            postContent.innerText = obj.post.content;
-
-            post.appendChild(postHeader);
-            post.appendChild(postContent);
-            if (obj.own_by_user) post.appendChild(createDelPostBtn(obj.post.id));
-            postContainer.appendChild(post);
+const refreshPosts = () => {
+    fetch('./utils/posts-json.php')
+        .then(function (response) {
+            return response.json();
         })
-    });
+        .then(function (data) {
+            if (currentPosts == data.length) return;
+
+            postContainer.innerHTML = "";
+            data.forEach((obj) => {
+                const post = document.createElement("div");
+                const postContent = document.createElement("p");
+                const postHeader = document.createElement("h2");
+
+                postHeader.innerText = `${obj.post.header}  - by @${obj.post_user.username} (${obj.timeAgo})`;
+                postContent.innerText = obj.post.content;
+
+                post.appendChild(postHeader);
+                post.appendChild(postContent);
+                if (obj.own_by_user) post.appendChild(createDelPostBtn(obj.post.id));
+                postContainer.appendChild(post);
+                currentPosts += 1;
+            })
+        });
+}
 
 function createDelPostBtn(postId) {
     const delBtn = document.createElement("form");
@@ -40,3 +46,5 @@ function createDelPostBtn(postId) {
     delBtn.appendChild(btn);
     return delBtn;
 }
+refreshPosts();
+setInterval(refreshPosts, 5000);
