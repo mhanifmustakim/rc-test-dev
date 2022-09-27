@@ -26,8 +26,8 @@
     
     <h1>Start a new discussion: </h1>
     <form action="./utils/controls/post.php" method="POST">
-        <input type="text" name="header" id="header" placeholder="Add header of discussion." maxlength="40" required>
-        <input type="text" name="content" id="content" placeholder="Add description." maxlength="250" rows="5" cols="50" required>
+        <input type="text" name="header" id="header" placeholder="Add header of discussion." maxlength="127" required>
+        <input type="text" name="content" id="content" placeholder="Add description." maxlength="2047" rows="5" cols="50" required>
         <input type="submit" value="Start Discussion" name="post">
     </form>
     <a href="utils/controls/logout.php">Log Out</a>
