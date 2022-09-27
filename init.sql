@@ -152,24 +152,18 @@ SET time_zone = "+08:00";
 -- Table structure for table `posts`
 --
 
--- CREATE TABLE `posts` (
---   `id` int(11) NOT NULL,
---   `user_id` int(11) NOT NULL,
---   `post_on` datetime NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
-
---
--- Dumping data for table `posts`
---
-
--- INSERT INTO `posts` (`id`, `user_id`, `post_on`) VALUES
--- (362, 2, '2021-02-06 08:31:07'),
--- (573, 2, '2021-04-02 03:03:39'),
--- (574, 2, '2021-04-02 03:04:53'),
--- (635, 2, '2021-04-15 09:03:32'),
--- (654, 2, '2021-04-25 02:19:45'),
--- (711, 25, '2021-04-29 18:29:24'),
--- (712, 2, '2021-04-29 18:29:55');
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+  `user_id` int(11) NOT NULL,
+  `post_on` datetime NOT NULL,
+  `header` varchar(40) NOT NULL,
+  `content` varchar(250) NOT NULL,
+  `img` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`user_id`),
+  INDEX (`header`),
+  ADD CONSTRAINT `posts_ibfk_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -281,29 +275,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
---
-
--- INSERT INTO `users` (`id`, `username`, `email`, `password`, `name`, `img`, `imgCover`, `bio`, `location`, `website`) VALUES
--- (2, 'amin', 'amin@twitter.com', '8e4e9b7ac6fc0df9e06f57f1c366cf8a', 'Amin.', 'user-608b4b4187b5c.JPG', 'user-607ef530bdeab.jpg', 'Undergraduate Software Engineer.', 'Alexandria,Egypt', 'https://github.com/aminyasser'),
--- (5, 'bodatolba', 'tolba@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Tolba', 'default.jpg', 'cover.png', '', '', ''),
--- (25, '7oda', '7oda@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', '7oda', 'default.jpg', 'cover.png', '', '', ''),
--- (27, 'hasona', 'hasona@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'hassan', 'default.jpg', 'cover.png', '', '', ''),
--- (33, '7odawael', 'wael@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mahmoud', 'default.jpg', 'cover.png', '', '', ''),
--- (34, 'haidy', 'haidy@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'haidy', 'default.jpg', 'cover.png', '', '', ''),
--- (37, 'aminn', 'amin1@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Amin Yasser', 'default.jpg', 'cover.png', '', '', ''),
--- (40, 'mohanadyasser', 'mohanad@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Mohanad', 'default.jpg', 'cover.png', '', '', ''),
--- (41, 'khaled0', 'khaled@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Khalid', 'default.jpg', 'cover.png', '', '', ''),
--- (42, 'ahmed0', 'ahmed@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ahmed', 'default.jpg', 'user-609be2968c0b9.png', '', '', ''),
--- (43, 'samy', 'samy@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Samy', 'default.jpg', 'cover.png', '', '', ''),
--- (44, 'remo', 'remo@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ramez', 'default.jpg', 'cover.png', '', '', ''),
--- (54, 'aminyasser', 'amino@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Amin Yasser', 'default.jpg', 'cover.png', '', '', ''),
--- (55, 'sasaa', 'aminsss@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Amin Yasser', 'user-609be3deec8e5.jpg', 'cover.png', '', '', ''),
--- (56, 'nbnbkj', 'nn@twittt.com', 'e10adc3949ba59abbe56e057f20f883e', 'Markting', 'default.jpg', 'cover.png', '', '', ''),
--- (57, 'sas', 'amin@ydar.com', 'e10adc3949ba59abbe56e057f20f883e', 'Amin Yasser', 'default.jpg', 'cover.png', '', '', ''),
--- (58, '201', 'amin111@twitter.com', 'e10adc3949ba59abbe56e057f20f883e', 'Amin1', 'default.jpg', 'cover.png', 'Hey', '', '');
-
---
 -- Indexes for dumped tables
 --
 
@@ -340,13 +311,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --   ADD KEY `notifications_ibfk_2` (`notify_from`);
 
 --
--- Indexes for table `posts`
---
--- ALTER TABLE `posts`
---   ADD PRIMARY KEY (`id`),
---   ADD KEY `user_id` (`user_id`);
-
---
 -- Indexes for table `replies`
 --
 -- ALTER TABLE `replies`
@@ -374,12 +338,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- ALTER TABLE `tweets`
 --   ADD PRIMARY KEY (`post_id`);
-
---
--- Indexes for table `users`
---
--- ALTER TABLE `users`
---   ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -410,12 +368,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT for table `posts`
---
--- ALTER TABLE `posts`
---   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=726;
-
---
 -- AUTO_INCREMENT for table `replies`
 --
 -- ALTER TABLE `replies`
@@ -426,12 +378,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- ALTER TABLE `trends`
 --   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `users`
---
--- ALTER TABLE `users`
---   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Constraints for dumped tables
@@ -466,12 +412,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --   ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`notify_from`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `posts`
---
--- ALTER TABLE `posts`
---   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `replies`
 --
 -- ALTER TABLE `replies`
@@ -486,11 +426,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --   ADD CONSTRAINT `retweets_ibfk_2` FOREIGN KEY (`tweet_id`) REFERENCES `tweets` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 --   ADD CONSTRAINT `retweets_ibfk_3` FOREIGN KEY (`retweet_id`) REFERENCES `retweets` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `tweets`
---
--- ALTER TABLE `tweets`
---   ADD CONSTRAINT `tweets_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

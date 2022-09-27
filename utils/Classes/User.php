@@ -29,23 +29,7 @@ class User extends Connect {
         }
       }
 
-      
-      public static  function loginByUsername ($username , $password) {
-        $stmt = self::connect()->prepare("SELECT `id` from `users` WHERE `username` = :username AND `password` = :password");
-        $stmt->bindParam(":username" , $username , PDO::PARAM_STR);
-        $password =md5($password);
-        $stmt->bindParam(":password" , $password , PDO::PARAM_STR);
-        $stmt->execute();
-         
-        if ($stmt->rowCount() > 0) {
-            $user = $stmt->fetch(PDO::FETCH_OBJ);
-            $_SESSION['user_id'] = $user->id;
-            header('location: ../../home.php');
-            return;
-        } else {
-          return false;
-        }
-      }
+    
 
       public static function create($table , $fields = array()) {
             $colms = implode(',' , array_keys($fields));
