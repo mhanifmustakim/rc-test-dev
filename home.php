@@ -2,7 +2,7 @@
     include 'utils/init.php';
 
     if (User::checkLogIn() === false) {
-        header('location: ../../index.php');
+        header('location: index.php');
         return;
     }
 

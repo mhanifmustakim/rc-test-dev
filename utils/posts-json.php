@@ -6,6 +6,7 @@
     $posts = POST::posts();
     foreach($posts as $post) { 
         $this_post = array();
+        $this_post['own_by_user'] = $user_id === $post->user_id;
         $this_post['post_user'] = User::getData($post->user_id) ;
         $this_post['timeAgo'] = Post::getTimeAgo($post->post_on) ; 
         // $likes_count = Post::countLikes($post->id) ;
