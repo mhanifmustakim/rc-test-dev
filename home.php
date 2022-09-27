@@ -17,9 +17,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <script src="./utils/Assets/main-home.js" defer></script>
 </head>
 <body>
     <h1>Welcome to Home Page! @<?php echo $user->username ?></h1>
+    <div id="post-container"></div>
     <a href="utils/controls/logout.php">Log Out</a>
 </body>
 </html>
