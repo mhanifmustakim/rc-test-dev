@@ -28,13 +28,18 @@ SET time_zone = "+08:00";
 -- Table structure for table `comments`
 --
 
--- CREATE TABLE `comments` (
---   `id` int(11) NOT NULL,
---   `comment` varchar(140) COLLATE utf16_unicode_ci NOT NULL,
---   `user_id` int(11) NOT NULL,
---   `post_id` int(11) NOT NULL,
---   `time` datetime NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `comment` varchar(2047) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`user_id`),
+  INDEX (`post_id`),
+  CONSTRAINT `comments_ibfk_posts` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comments_ibfk_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `comments`
@@ -279,14 +284,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
--- Indexes for table `comments`
---
--- ALTER TABLE `comments`
---   ADD PRIMARY KEY (`id`),
---   ADD KEY `post_id` (`post_id`),
---   ADD KEY `user_id` (`user_id`);
-
---
 -- Indexes for table `follow`
 --
 -- ALTER TABLE `follow`
@@ -344,12 +341,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
--- AUTO_INCREMENT for table `comments`
---
--- ALTER TABLE `comments`
---   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
---
 -- AUTO_INCREMENT for table `follow`
 --
 -- ALTER TABLE `follow`
@@ -382,13 +373,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `comments`
---
--- ALTER TABLE `comments`
---   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
---   ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `follow`
