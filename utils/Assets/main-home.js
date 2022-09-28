@@ -12,15 +12,17 @@ const refreshPosts = () => {
             postContainer.innerHTML = "";
             data.forEach((obj) => {
                 const post = document.createElement("div");
-                const postContent = document.createElement("p");
+                const postLink = document.createElement("a");
                 const postHeader = document.createElement("h2");
 
-                postHeader.innerText = `${obj.post.header}  - by @${obj.post_user.username} (${obj.timeAgo})`;
-                postContent.innerText = obj.post.content;
+                const postInfo = document.createTextNode(`- by @${obj.post_username} (${obj.timeAgo})`);
+                postHeader.innerText = `${obj.post_header}`;
+                postLink.setAttribute("href", `post.php?id=${obj.post_id}`);
 
-                post.appendChild(postHeader);
-                post.appendChild(postContent);
-                if (obj.own_by_user) post.appendChild(createDelPostBtn(obj.post.id));
+                postLink.appendChild(postHeader);
+                post.appendChild(postLink);
+                post.appendChild(postInfo);
+                if (obj.own_by_user) post.appendChild(createDelPostBtn(obj.post_id));
                 postContainer.appendChild(post);
                 currentPosts += 1;
             })

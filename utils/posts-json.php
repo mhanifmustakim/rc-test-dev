@@ -5,14 +5,15 @@
     $return_value = array();
     $posts = POST::posts();
     foreach($posts as $post) { 
+        $post_user = User::getData($post->user_id);
         $this_post = array();
         $this_post['own_by_user'] = $user_id === $post->user_id;
-        $this_post['post_user'] = User::getData($post->user_id) ;
-        $this_post['timeAgo'] = Post::getTimeAgo($post->post_on) ; 
+        $this_post['post_username'] = $post_user->username;
+        $this_post['timeAgo'] = Post::getTimeAgo($post->post_on); 
         // $likes_count = Post::countLikes($post->id) ;
         // $user_like_it = Post::userLikeIt($user_id ,$post->id);
-        $this_post['post_link'] = $post->id;
-        $this_post['post'] = $post;
+        $this_post['post_id'] = $post->id;
+        $this_post['post_header'] = $post->header;
         // $comment_count = Post::countComments($post->id); 
         array_push($return_value, $this_post);
     }
